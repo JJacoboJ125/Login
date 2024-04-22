@@ -103,40 +103,21 @@ public Response login(CompetitorLOGIN login) {
         q.setParameter("address", address);
         q.setParameter("pass", pass);
         
-        String a = address+"1";
-        String b = pass+"2";
         List<Competitor> competitors = q.getResultList();
         
         if (!competitors.isEmpty()) {
             return Response.status(200)
                     .header("Access-Control-Allow-Origin", "*")
-                    .entity(competitors.get(0)) // Devolver el primer competidor encontrado
+                    .entity(competitors.get(0))
                     .build();
         } else {
             return Response.status(401)
-                    .header("NotAuthorizedException", "*").build();
+                    .header("NotAuthorizedException", "*").entity("NotAuthorizedException").build();
         }
     }catch (Exception e) {
-        // Manejar cualquier excepción que pueda ocurrir, como problemas de base de datos
         return Response.status(500)
                 .entity("Error al procesar la solicitud: " + e.getMessage())
                 .build();
     }
 }
-
-//    public Response login(@FormParam("adress") String adress, @FormParam("pass") String pass) {
-//
-//        JSONObject rta = new JSONObject();
-//        Query q = entityManager.createQuery(
-//                "SELECT c FROM Competitor c WHERE c.address = :address AND c.pass = :pass");
-//        q.setParameter("address", adress);
-//        q.setParameter("pass", pass);
-//        List<Competitor> com = q.getResultList();
-//        if (!com.isEmpty()) {
-//            return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(rta).build();
-//        } else {
-//            return Response.status(400).header("NotAuthorizedException", "*").build();
-//        }
-//    }
-
 }
