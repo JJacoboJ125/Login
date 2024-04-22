@@ -91,7 +91,7 @@ public class Competitor {
         this.createdAt = this.updatedAt = Calendar.getInstance();
     }
     @OneToMany(cascade=ALL, mappedBy="competitor")
-private Set<Producto> products;
+        private Set<Producto> products;
 
     public Long getId() {
         return id;
